@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie-edge">
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/w3.css')}}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<title>Student Management v1.0</title>
+		<style>
+			html {
+				scroll-behavior: smooth;
+			}
+			.mySlides {display:none;}
+		</style>
+	</head>
+	<body>
+		<div class="w3-sidebar w3-bar-block w3-border-right w3-2021-illuminating w3-animate-left" style="display:none" id="mySidebar">
+			<button onclick="w3_close()" class="w3-bar-item w3-large w3-2021-french-blue"><i class="glyphicon glyphicon-remove w3-xlarge">	Close</i></button>
+			<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-home w3-xlarge">	Home</i></a>
+			<a href="{{ url_for('index') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Manage</i></a>
+			<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-info-sign w3-xlarge">	About</i></a>
+			<a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Logout</i></a>
+		</div>
+		<div id="main">
+			<div class="w3-top w3-margin-bottom">
+				<div class="w3-bar w3-2021-french-blue w3-animate-top">		
+					<div class="w3-container w3-col l1">
+						<button id="openNav" class="w3-button w3-2021-french-blue w3-large" onclick="w3_open()">☰</button>	
+					</div>	
+					<div class="w3-content w3-center">
+						<h4>{{ pagetitle.upper() }}</h4>
+					</div>
+						
+				</div>
+			</div>
+			<div class="w3-margin-top w3-padding w3-container">
+				{% block content%}
+				{% endblock %}
+			</div>
+		</div>
+		
+		<script>
+			function w3_open() {
+				document.getElementById("main").style.marginLeft = "25%";
+				document.getElementById("mySidebar").style.width = "25%";
+				document.getElementById("mySidebar").style.display = "block";
+				document.getElementById("openNav").style.display = 'none';
+			}
+			
+			function w3_close() {
+				document.getElementById("main").style.marginLeft = "0%";
+				document.getElementById("mySidebar").style.display = "none";
+				document.getElementById("openNav").style.display = "inline-block";
+			}
+		</script>
+	</body>
+</html>
