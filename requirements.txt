@@ -1,0 +1,20 @@
+REQUIREMENTS:
+
+1.) Install virtual environment in this folder:
+	- pip install virtualenv
+	if virtualenv already installed, proceed number 2.
+	else proceed 1
+
+2.) Type virtualenv <name of virtual environment>:
+	- virtualenv venv
+
+3.) CD to <name of venv>\Scripts\activate:
+	- venv\Scripts\activate
+	(venv) will show in the first line
+
+4.) Install Flask:
+	- pip install Flask
+
+5. Run app.py:
+	- app.py
+
