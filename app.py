@@ -11,6 +11,10 @@ students:list = [
     {'idno':'0005','lastname':'foxtrot','firstname':'echo','course':'bscs','level':'3',},
 ]
 
+@app.route("/register")
+def register():
+    return render_template("register.html",pagetitle="REGISTER")
+
 @app.route("/userlogin",methods=['POST'])
 def userlogin()->None:
     username:str = request.form['username']

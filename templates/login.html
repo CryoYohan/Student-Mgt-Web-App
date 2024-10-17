@@ -11,7 +11,7 @@
 		<title>Student Management v1.0</title>
 	</head>	
 	<body>
-		<div class="w3-container w3-bar w3-2021-french-blue w3-container">
+		<div class="w3-container w3-bar w3-2021-french-blue">
 			<h3 class="w3-center">{{ pagetitle.upper() }}</h3>
 		</div>		
 		<div class="w3-card-4 w3-animate-top w3-container w3-margin-top w3-padding w3-mobile" style="width:50%;margin:auto">
@@ -28,7 +28,7 @@
 					<input type="submit" value="LOGIN" class="w3-button w3-blue w3-round-large">
 				</p>
 				<p class="w3-center">
-					<input type="submit" value="REGISTER" class="w3-button w3-white w3-border w3-border-blue w3-small w3-round">
+					<p class="w3-margin-top w3-padding w3-center">Don't have an account? <a class="bottom" href="{{url_for('register')}}">Sign Up here</a></p>
 				</p>
 			</form>
 		</div>
