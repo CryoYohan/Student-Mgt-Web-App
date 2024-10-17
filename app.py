@@ -1,6 +1,7 @@
-from flask import Flask,render_template,request,url_for,redirect
+from flask import Flask,render_template,request,url_for,redirect,flash
 
 app = Flask(__name__)
+app.secret_key="!@#!@#"
 
 students:list = [
     {'idno':'0001','lastname':'durano','firstname':'dennis','course':'bscpe','level':'4',},
@@ -15,8 +16,10 @@ def userlogin()->None:
     username:str = request.form['username']
     password:str = request.form['password']
     if username == "admin" and password=="user":
+        flash("LOGIN SUCCESSFUL!")
         return redirect(url_for("landingpage"))
     else:
+        flash("LOGIN FAILED!")
         return redirect(url_for("login"))
 
 
