@@ -5,15 +5,16 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie-edge">
 		<link rel="stylesheet" href="{{ url_for('static',filename='css/w3.css')}}">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<title>Student Management v1.0</title>
 	</head>	
 	<body>
-		<div class="w3-container w3-bar w3-2021-french-blue w3-container">
+		<div class="w3-container w3-bar w3-2021-french-blue">
 			<h3 class="w3-center">{{ pagetitle.upper() }}</h3>
 		</div>		
-		<div class="w3-card-4 w3-animate-top w3-container w3-padding" style="width:50%;margin:auto">
+		<div class="w3-card-4 w3-animate-top w3-container w3-margin-top w3-padding w3-mobile" style="width:50%;margin:auto">
 			<form method='post' action="/userlogin">
 				<p>
 					<label>USERNAME</label>
@@ -25,6 +26,9 @@
 				</p>
 				<p class="w3-center">
 					<input type="submit" value="LOGIN" class="w3-button w3-blue w3-round-large">
+				</p>
+				<p class="w3-center">
+					<p class="w3-margin-top w3-padding w3-center">Don't have an account? <a class="bottom" href="{{url_for('register')}}">Sign Up here</a></p>
 				</p>
 			</form>
 		</div>
