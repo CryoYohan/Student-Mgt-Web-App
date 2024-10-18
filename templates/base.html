@@ -17,6 +17,7 @@
 		</style>
 	</head>
 	<body>
+<<<<<<< HEAD
 		{% if shownavbar %}
 			<div class="w3-sidebar w3-bar-block w3-2021-illuminating w3-animate-left" style="display:none;z-index:5" id="mySidebar">
 				<button onclick="w3_close()" class="w3-bar-item w3-large w3-2021-french-blue"><i class="glyphicon glyphicon-remove w3-xlarge">	Close</i></button>
@@ -28,6 +29,23 @@
 						<a href="{{ url_for('show') }}" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-user w3-xlarge"></i>	Show Students</a>
 						<a href="#" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-trash w3-xlarge"></i>	Remove Students</a>
 						<a href="#" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-edit w3-xlarge"></i>	Update Students</a>
+=======
+		<div class="w3-sidebar w3-bar-block w3-border-right w3-2021-illuminating w3-animate-left" style="display:none" id="mySidebar">
+			<button onclick="w3_close()" class="w3-bar-item w3-large w3-2021-french-blue"><i class="glyphicon glyphicon-remove w3-xlarge">	Close</i></button>
+			<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-home w3-xlarge">	Home</i></a>
+			<a href="{{ url_for('index') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Manage</i></a>
+			<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-info-sign w3-xlarge">	About</i></a>
+			<a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Logout</i></a>
+		</div>
+		<div id="main" class="w3-mobile">
+			<div class="w3-margin-bottom w3-top">
+				<div class="w3-bar w3-2021-french-blue w3-animate-top">		
+					<div class="w3-container w3-col l1">
+						<button id="openNav" class="w3-button w3-2021-french-blue w3-large" onclick="w3_open()">☰</button>	
+					</div>	
+					<div class="w3-content w3-center">
+						<h4>{{ pagetitle.upper() }}</h4>
+>>>>>>> d415e64e731f1483a43a14f2280e77146f9cf82e
 					</div>
 				<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-info-sign w3-xlarge">	About</i></a>
 				<a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Logout</i></a>
@@ -52,6 +70,13 @@
 				{% endblock %}
 			</div>
 		</div>
+<<<<<<< HEAD
+=======
+		<div class="w3-center w3-display-middlebottom">
+			&copy;Copyright YPIL, CYRIL JOHN
+		</div>
+		
+>>>>>>> d415e64e731f1483a43a14f2280e77146f9cf82e
 		<script>
 			function w3_open() {
 				document.getElementById("main").style.marginLeft = "25%";

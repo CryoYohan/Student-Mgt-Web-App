@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import mysql.connector
 class Databasehelper:
     def __init__(self)->None:
@@ -23,3 +24,32 @@ class Databasehelper:
         cursor.close()
         connection.close()
         return users
+=======
+from mysql.connector import connect
+
+def dbconnect()->None:
+    return connect(
+            host='127.0.0.1',
+            user='root',
+            password='',
+            database='users'
+    )
+    
+def getall_users()->list:
+    sql:str = f"SELECT * FROM `users`"
+    db:object = dbconnect()
+    cursor:object = db.cursor(dictionary=True)
+    cursor.execute(sql)
+    data:list = cursor.fetchall()
+    return data
+    
+def validate_user(username:str,password:str)->list:
+    sql:str = f"SELECT * FROM `users` WHERE `username`= {username} AND `password`= {password}"
+    db:object = dbconnect()
+    cursor:object = db.cursor(dictionary=True)
+    cursor.execute(sql)
+    data:list = cursor.fetchall()
+    return data
+
+    
+>>>>>>> d415e64e731f1483a43a14f2280e77146f9cf82e
