@@ -35,7 +35,7 @@ def login()->None:
 def landingpage():
     return render_template("landingpage.html",pagetitle='Student Management Web App')
 
-
+#Hi
 @app.route("/index")
 def index()->None:
     return render_template("index.html",slist = students,pagetitle='student list')
