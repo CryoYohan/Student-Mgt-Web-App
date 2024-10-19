@@ -42,7 +42,6 @@ def landingpage():
 
 @app.route("/showstudents")
 def show()->None:
-    current_url = request.path
     return render_template("show.html",slist = students,pagetitle='student list', shownavbar=True)
 
 
