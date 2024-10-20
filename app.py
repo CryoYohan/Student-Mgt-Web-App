@@ -28,11 +28,26 @@ def userregister()->None:
         flash("Passwords do not match!", "warning")
         return render_template('register.html')
 
-    flash("Registered successfully!", "info")
-    #student = Student(idno=idno,lastname=lastname,firstname=firstname,midinit=middlename,course=course,level=level,password_plain=password)
-    hashed_pw = pwhash.hashpassword(password)
-    db.add_students(idno=idno,lastname=lastname,firstname=firstname,midinit=middlename,course=course,level=level,username=username,password_plain=password, password_hash=hashed_pw)
-    return redirect(url_for('login'))
+    if not idno_duplicate(idno,username):
+        hashed_pw = pwhash.hashpassword(password)
+        student = Student(idno=idno,lastname=lastname,firstname=firstname,midinit=middlename,course=course,level=level,username=username,password_plain=password, password_hash=hashed_pw)
+        db.add_students(**student.__dict__)
+        flash("Registered successfully!", "info")
+        return redirect(url_for('login'))
+    else:
+        return redirect(url_for('register'))
+
+def idno_duplicate(idno:str, username:str)->bool:
+    students = db.getall_students()
+    for student in students:
+        if student['idno'] == idno:
+            flash("User ID already exist!", "warning")
+            return True
+        
+        if student['username'] == username:
+            flash("Username already exist!", "warning")
+            return True
+    return False
 
 
 @app.route("/userlogin",methods=['POST'])

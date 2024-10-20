@@ -9,7 +9,9 @@ class Student():
         self.midinit = args.get('midinit')
         self.course = args.get('course')
         self.level = args.get('level')
-        self.password = args.get('password')
+        self.username = args.get('username')
+        self.password_plain = args.get('password_plain')
+        self.password_hash = args.get('password_hash')
         
     def __str__(self)->dict: 
         #return f"{self.idno},{self.lastname},{self.firstname},{self.course},{self.level}"
@@ -20,7 +22,9 @@ class Student():
                 'midinit':self.midinit,
                 'course':self.course,
                 'level':self.level,
-                'password':self.password
+                'username':self.username,
+                'password_plain':self.password_plain,
+                'password_hash':self.password_hash
                 }
         return studenrecord
         
