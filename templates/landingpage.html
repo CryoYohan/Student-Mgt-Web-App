@@ -7,10 +7,9 @@
 <!-- Slideshow container with images -->
 <div class="w3-center w3-card-2 w3-2021-inkwell" style="max-width:100%; overflow:hidden;">
     {% for i in range(1, 6) %}
-        <img class="mySlides w3-animate-left" src="{{ url_for('static', filename='images/slideshow' + i|string + '.jpg') }}" alt="Banner{{i}}" style="width:100%; max-height:400px; object-fit:cover; display:none;">
+        <img class="mySlides w3-animate-opacity" src="{{ url_for('static', filename='images/slideshow' + i|string + '.jpg') }}" alt="Banner{{i}}" style="width:100%; max-height:400px; object-fit:cover; display:none;">
     {% endfor %}
 </div>
-
 <div id="about" class="w3-container w3-card-2 w3-2021-illuminating w3-animate-bottom w3-margin-top">
     <h2 class="w3-courier">About</h2>
     <p class="w3-center w3-monospace w3-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
@@ -64,7 +63,7 @@
       myIndex++;
       if (myIndex > x.length) {myIndex = 1}    
       x[myIndex-1].style.display = "block";  
-      setTimeout(carousel, 3000); // Change image every 3 seconds
+      setTimeout(carousel, 4000); // Change image every 4 seconds
     }
 </script>
 {% endblock %}
