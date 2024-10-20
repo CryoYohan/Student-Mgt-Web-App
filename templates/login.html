@@ -1,19 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'baseloginregister.html' %}
 {% block content %}
-<div class="w3-card-4 w3-animate-top w3-container w3-padding" style="width:50%;margin:auto">
+ <!-- Flash Messages -->
+ {% with messages = get_flashed_messages(with_categories=true) %}
+ {% if messages %}
+	 <div class="w3-panel w3-red w3-display-container">
+		 {% for category, message in messages %}
+			 <span align="center">{{ message }}</span>
+		 {% endfor %}
+		 <span onclick="this.parentElement.style.display='none'" class="w3-button w3-small w3-display-topright">&times;</span>
+	 </div>
+ {% endif %}
+{% endwith %}
+<div class="w3-animate-top w3-border w3-margin-large w3-padding" style="width:100%;margin:auto">
+	<div class="header w3-margin-top">
+		<h1 class="w3-center w3-bar w3-2021-french-blue w3-round w3-xxlarge w3-sanserif"><b>Student Login</b></h1>
+	 </div></br>
 	<form method='post' action="/userlogin">
-		<p>
-			<label>USERNAME</label>
-			<input type="text" name="username" class="w3-input w3-border">
-		</p>
-		<p>
-			<label>PASSWORD</label>
-			<input type="password" name="password" class="w3-input w3-border">
-		</p>
-		<p class="w3-center">
-			<input type="submit" value="LOGIN" class="w3-button w3-blue w3-round-large">
-		</p>
+		<div class="w3-margin w3-animate-top w3-center">
+			<p>
+				<label>USERNAME</label>
+				<input type="text" name="username" class="w3-input w3-border" style="width:100%">
+			</p>
+		</div>
+		<div class="w3-margin w3-animate-top w3-center">
+			<p>
+				<label>PASSWORD</label>
+				<input type="password" name="password" class="w3-input w3-border" style="width:100%">
+			</p>
+		</div>
+		<div class="w3-padding w3-margin w3-center">
+			<p class="w3-xlarge">
+				<input type="submit" value="LOGIN" class="w3-button w3-blue w3-round-large w3-center " style="width:50%">
+			</p>
+		</div>
 	</form>
-	<p class="bottom">Don't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>
+	<p class="bottom w3-center">Don't have an account?  <a class="bottom" href="{{url_for('register')}}"> Sign Up here</a></p>
 </div>
 {% endblock %}

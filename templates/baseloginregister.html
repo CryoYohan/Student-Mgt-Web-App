@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>Student Management</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        .left {
+            background-color: blue;
+            width: 60%; /* Take up 60% of the width */
+            position: relative; /* To position inner elements */
+        }
+        .right {
+            background-color: lightgray;
+            width: 40%; /* Take up 40% of the width */
+        }
+        /* Make the image fill the container */
+        .left img {
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            object-fit: cover; /* Cover the entire area while maintaining aspect ratio */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="w3-row">
+        <div class="w3-col left w3-center w3-animate-opacity" style="height:100vh;">
+            <img class="w3-grayscale-min"src="{{ url_for('static', filename='images/loginBG.jpg') }}" alt="Boat">
+            <div class="w3-text-blue w3-display-topleft w3-jumbo w3-sanserif w3-wide" style="text-shadow:3px 3px 0 #FFFF"><b>Welcome to Tidert's University</b></div>
+            <div class="w3-large w3-text-purple w3-margin w3-padding w3-display-middle w3-2021-illuminating w3-round" style="width:90%;text-align:justify"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+                sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+            <div class="w3-container w3-display-bottomright w3-text-white w3-large">
+                <p>Brought to you by <i>Creulius Joharius</i></p>
+            </div>
+        </div>
+        <div class="w3-col right" style="height:100vh;">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

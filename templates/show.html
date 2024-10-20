@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="w3-2021-illuminating w3-center w3-margin-top w3-padding w3-serif">
+    <h1>Showing All Students Information</h1>
+</div>
 <div class="w3-animate-left w3-content w3-container w3-margin-top">
-    <table class="w3-table-all w3-centered">
+    <table class="w3-table-all w3-display-bottom w3-full">
         <tr>
             <th>ID Number</th>
             <th>Last Name</th>
+            <th>Middle Initial</th>
             <th>First Name</th>
             <th>Course</th>
             <th>Level</th>
+            <th>Username</th>
+            <th>Password</th>
         </tr>
         {% for student in slist %}
             <tr class="w3-hover-yellow">
                 <td>{{ student['idno']}}</td>
-                <td>{{ student['lastname']}}</td>
-                <td>{{ student['firstname']}}</td>
-                <td>{{ student['course']}}</td>
+                <td>{{ student['lastname'].title()}}</td>
+                <td>{{ student['midinit'][0].capitalize() + '.'}}</td>
+                <td>{{ student['firstname'].title()}}</td>
+                <td>{{ student['course'].upper()}}</td>
                 <td>{{ student['level']}}</td>
+                <td>{{ student['username']}}</td>
+                <td>{{ student['password_plain']}}</td>
             </tr>
         {% endfor %}
     </table>

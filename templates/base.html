@@ -28,7 +28,11 @@
 						<a href="{{ url_for('show') }}" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-user w3-xlarge"></i>	Show Students</a>
 						<a href="#" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-trash w3-xlarge"></i>	Remove Students</a>
 						<a href="#" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-edit w3-xlarge"></i>	Update Students</a>
-		<div id="main" class="w3-mobile">
+					</div>
+					<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-info-sign w3-xlarge">	About</i></a>
+				<a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Logout</i></a>
+			</div>
+			<div id="main" class="w3-mobile">
 			<div class="w3-margin-bottom w3-top">
 				<div class="w3-bar w3-2021-french-blue w3-animate-top">		
 					<div class="w3-container w3-col l1">
@@ -37,8 +41,7 @@
 					<div class="w3-content w3-center">
 						<h4>{{ pagetitle.upper() }}</h4>
 					</div>
-				<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-info-sign w3-xlarge">	About</i></a>
-				<a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Logout</i></a>
+				</div>
 			</div>
 			<div id="main">
 				<div class="w3-top w3-margin-bottom">
@@ -54,7 +57,7 @@
 				<!-- Overlay -->
 			<div class="w3-overlay" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
 		{% endif %}
-			<div class="w3-margin-top w3-padding w3-container">
+			<div class="w3-margin-top">
 				{% block content%}
 				{% endblock %}
 			</div>
