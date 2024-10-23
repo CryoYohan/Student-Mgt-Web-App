@@ -20,16 +20,16 @@
             {% endfor %}
 	    {% endif %}
 {% endwith %}
-<div class="w3-animate-left w3-content w3-container w3-margin-top">
-    <div class="w3-left w3-container w3-row-padding w3-margin">
+<div class="w3-animate-left w3-content w3-container w3-margin-top w3-mobile">
+    <div class="w3-left w3-container w3-row-padding w3-margin w3-mobile">
         <input type="text" name="search" class="w3-input w3-border w3-half w3-medium w3-round w3-padding" placeholder="Search Student ID.." required style="width:70%">
         <a href="#" class="w3-bar-item w3-button w3-quarter w3-xlarge"><i class="fa fa-search"></i></a>
     </div>
-    <div class="w3-right w3-container w3-row-padding w3-margin">
+    <div class="w3-right w3-container w3-row-padding w3-margin w3-mobile">
         <span class="w3-button w3-2021-french-blue w3-round" onclick="document.getElementById('id01').style.display='block'">Add Student</span>
     </div>
-    <div id="id01" class="w3-modal">
-        <div class="w3-modal-content w3-animate-zoom">
+    <div id="id01" class="w3-modal w3-mobile">
+        <div class="w3-modal-content w3-animate-zoom w3-mobile">
       
           <header class="w3-container w3-2021-french-blue">
             <span onclick="document.getElementById('id01').style.display='none'"
@@ -37,7 +37,7 @@
             <h2 class="w3-center">Add Student</h2>
           </header>
       
-          <div class="w3-container w3-padding">
+          <div class="w3-container w3-padding w3-mobile">
             <form class="w3-row-padding" method='POST' action="/addstudent">
 
                 <div class="w3-half">
@@ -82,17 +82,17 @@
                     </p>
                 </div>
         
-                <div class="w3-panel w3-center w3-padding-top">
+                <div class="w3-panel w3-center w3-padding-top w3-mobile">
                     <p class="w3-center">
-                        <input type="submit" value="ADD STUDENT" class="w3-button w3-blue w3-round-large w3-large w3-padding-16" style="width:30%">
+                        <input type="submit" value="ADD STUDENT" class="w3-button w3-blue w3-round-large w3-large w3-padding-16 w3-mobile" style="width:30%">
                     </p>
                 </div>
             </form>
           </div>     
         </div>
       </div>
-    <table class="w3-table-all w3-display-bottom">
-        <tr>
+    <table class="w3-table-all w3-display-bottom w3-mobile">
+        <tr class="w3-mobile">
             <th>ID Number</th>
             <th>Last Name</th>
             <th>Middle Initial</th>
@@ -103,7 +103,7 @@
             <th>Password</th>
         </tr>
         {% for student in slist %}
-            <tr class="w3-hover-yellow">
+            <tr class="w3-hover-yellow w3-mobile">
                 <td>{{ student['idno']}}</td>
                 <td>{{ student['lastname'].title()}}</td>
                 <td>{{ student['midinit'][0].capitalize() + '.'}}</td>
