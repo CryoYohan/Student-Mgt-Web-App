@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="w3-modal" id="usermodal">
+    <div class="w3-modal-content w3-animate-top" style="width:50%">
+        <div class="w3-container w3-blue">
+            <h3>USER</h3>
+            <span class="w3-button w3-display-middle" onclick="document.getElementById('usermodal').style.display='none'">&times;</span>
+        </div>
+        <div class="w3-container w3-padding">
+            <form method='post' action="/adduser">
+                <p>
+                    <label>NAME</label>
+                    <input type="text" name="fname" class="w3-input">
+                </p>
+                <p>
+                    <label>USERNAME</label>
+                    <input type="text" name="username" class="w3-input">
+                </p>
+                <p>
+                    <label>PASSWORD</label>
+                    <input type="password" name="password" class="w3-input">
+                </p>
+                <p>
+                    <input type="submit" value="&#128427; SAVE" class="w3-input w3-blue">
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

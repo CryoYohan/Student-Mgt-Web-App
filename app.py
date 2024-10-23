@@ -1,7 +1,8 @@
-from flask import Flask,render_template,request,url_for,redirect,flash
+from flask import Flask,render_template,request,url_for,redirect,flash, session
 from dbhelper import Databasehelper
 from student import Student
 from hashpw import PasswordHashing
+from time import sleep
 
 app = Flask(__name__)
 db = Databasehelper()
@@ -37,6 +38,8 @@ def userregister()->None:
     else:
         return redirect(url_for('register'))
 
+
+
 def idno_duplicate(idno:str, username:str)->bool:
     students = db.getall_students()
     for student in students:
@@ -49,6 +52,20 @@ def idno_duplicate(idno:str, username:str)->bool:
             return True
     return False
 
+@app.after_request
+def after_request(response):
+    response.headers['Cache-Control'] = 'no-cache,no-store,must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    return response
+
+@app.route("/logout")
+def logout():
+    session['name'] = None
+    return redirect(url_for("login"))
+
+@app.route('/updatestudent')
+def updatestudent():
+    return redirect(url_for('login')) if not session.get('name') else render_template("updatestudent.html", pagetitle="Update Student Information", shownavbar=True)
 
 @app.route("/userlogin",methods=['POST'])
 def userlogin()->None:
@@ -58,7 +75,8 @@ def userlogin()->None:
     for student in students:
         if student['username'] == username and student['password_plain'] == password:
             flash("LOGIN SUCCESSFUL!")
-            return redirect(url_for("landingpage"))
+            session['name'] = username
+            return redirect(url_for("index"))
     flash("LOGIN FAILED!")
     return redirect(url_for("login"))
             
@@ -72,14 +90,19 @@ def register():
 def login()->None:
     return render_template("login.html",pagetitle='user login',shownavbar=False)
 
-@app.route("/")
-def landingpage():
-    return render_template("landingpage.html",pagetitle='Tidert\'s University',shownavbar=True)
-
 @app.route("/showstudents")
 def show()->None:
-    return render_template("show.html",slist = db.getall_students(),pagetitle='student list', shownavbar=True)
+    return redirect("login") if not session.get("name") else render_template("show.html",slist = db.getall_students(),pagetitle='student list', shownavbar=True)
 
+
+@app.route("/")
+def index():
+    return redirect(url_for('login')) if not session.get('name') else render_template("index.html",pagetitle='Tidert\'s University',shownavbar=True)
+
+
+@app.route("/landingpage")
+def landingpage():
+    return redirect("login") if not session.get("name") else render_template("landingpage.html",pagetitle='Tidert\'s University',shownavbar=True)
 
 if __name__=="__main__":
     app.run(debug=True,host="0.0.0.0")
