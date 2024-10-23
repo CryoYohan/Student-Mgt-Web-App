@@ -45,11 +45,11 @@ def userregister()->None:
     password:str = request.form['password']
     confirm_password:str = request.form['confirmpassword']
     if not idno or not lastname or not middlename or not firstname or not course or not level or not username or not password or not confirm_password:
-        flash("Please fill all fields!", "warning")
+        flash("Please fill all fields!", "error")
         return render_template('register.html')
 
     if password != confirm_password:
-        flash("Passwords do not match!", "warning")
+        flash("Passwords do not match!", "error")
         return render_template('register.html')
 
     if not idno_duplicate(idno,username):
@@ -58,8 +58,6 @@ def userregister()->None:
         db.add_students(**student.__dict__)
         flash("Registered successfully!", "info")
         return redirect(url_for('login'))
-    else:
-        return redirect(url_for('register'))
 
 
 
@@ -67,11 +65,11 @@ def idno_duplicate(idno:str, username:str)->bool:
     students = db.getall_students()
     for student in students:
         if student['idno'] == idno:
-            flash("User ID already exist!", "warning")
+            flash("User ID already exist!", "error")
             return True
         
         if student['username'] == username:
-            flash("Username already exist!", "warning")
+            flash("Username already exist!", "error")
             return True
     return False
 
@@ -97,10 +95,10 @@ def userlogin()->None:
     students = db.getall_students()
     for student in students:
         if student['username'] == username and student['password_plain'] == password:
-            flash("LOGIN SUCCESSFUL!")
+            flash("LOGIN SUCCESSFUL!", "info")
             session['name'] = username
             return redirect(url_for("index"))
-    flash("LOGIN FAILED!")
+    flash("LOGIN FAILED!", "error")
     return redirect(url_for("login"))
             
                
