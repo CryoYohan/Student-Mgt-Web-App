@@ -10,6 +10,29 @@ pwhash = PasswordHashing()
 app.secret_key="!@#"
 
 
+
+@app.route("/addstudent", methods=['POST'])
+def addstudent():
+    idno:str = request.form['idno']
+    lastname:str = request.form['lastname']
+    middlename:str = request.form['midinit']
+    firstname:str = request.form['firstname']
+    course:str = request.form['course']
+    level:int = request.form['level']
+    username:str = f"tu-{idno}"
+    password:str = f"{idno}-{lastname[0]}"
+    if not idno_duplicate(idno,username):
+        hashed_pw = pwhash.hashpassword(password)
+        student = Student(idno=idno,lastname=lastname,firstname=firstname,midinit=middlename,course=course,level=level,username=username,password_plain=password, password_hash=hashed_pw)
+        db.add_students(**student.__dict__)
+        flash("Student Added Successfully!", "info")
+        return redirect( url_for('show') )
+
+    else:
+        flash("Error! Student not Added", "error")
+        return redirect( url_for('show') )
+
+
 @app.route("/userregister",methods=['POST'])
 def userregister()->None:
     idno:str = request.form['idno']
