@@ -32,7 +32,7 @@
 					<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-info-sign w3-xlarge">	About</i></a>
 				<a href="/logout" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-log-out w3-xlarge">	Logout</i></a>
 			</div>
-			<div id="main">
+			<div id="main" class="w3-margin-bottom">
 				<div class="w3-top w3-margin-bottom">
 					<div class="w3-bar w3-2021-french-blue w3-animate-top">		
 						<div class="w3-bar-item w3-container" style="width:20%;">
@@ -41,11 +41,9 @@
 						<div class="w3-bar-item w3-center" style="width:60%;">
 							<h4>{{ pagetitle.upper() }}</h4>
 						</div>		
-						<div class="w3-bar-item w3-right w3-padding-right" style="width:11%;">
-							<a href="#" class="w3-button w3-hover-white">
-								<i class="fa fa-user-circle w3-xlarge"></i> Account
-							</a>
-						</div>			
+						<div class="w3-container w3-bar-item w3-right w3-padding-right" style="width:11%;">
+							<a href="{{ url_for('account') }}" class="w3-bar-item w3-button"><i class="fa fa-user-circle w3-xlarge"></i>	Account</a>
+						</div>	
 					</div>
 				</div>
 				<!-- Overlay -->
@@ -74,17 +72,18 @@
 				document.getElementById("myOverlay").style.display = "none";
 				document.getElementById("openNav").style.display = "inline-block";
 			}
-			  function myAccFunc() {
+			function myAccFunc() {
 				var x = document.getElementById("demoAcc");
 				if (x.className.indexOf("w3-show") == -1) {
-				  x.className += " w3-show";
-				  x.previousElementSibling.className += " w3-2021-illuminating";
+					x.className += " w3-show";
+					x.previousElementSibling.className += " w3-2021-illuminating";
 				} else { 
-				  x.className = x.className.replace(" w3-show", "");
-				  x.previousElementSibling.className = 
-				  x.previousElementSibling.className.replace(" w3-green", "");
+					x.className = x.className.replace(" w3-show", "");
+					x.previousElementSibling.className = 
+					x.previousElementSibling.className.replace(" w3-green", "");
 				}
-			  }
+			}
+			
 		</script>
 	</body>
 </html>
