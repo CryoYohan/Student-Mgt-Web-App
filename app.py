@@ -15,6 +15,7 @@ app.secret_key="!@#"
 def account():
     return redirect(url_for('login')) if not session.get('name') else render_template("account.html", pagetitle="Account Information", shownavbar=True)
 
+
 @app.route("/addstudent", methods=['POST'])
 def addstudent():
     idno:str = request.form['idno']
