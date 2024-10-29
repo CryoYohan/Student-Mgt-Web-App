@@ -21,34 +21,49 @@
             {% endfor %}
 	    {% endif %}
 {% endwith %}
+<div class="w3-animate-left w3-content w3-container w3-margin-top w3-mobile">
+    <div class="w3-left w3-container w3-row-padding w3-margin w3-mobile">
+        <input type="text" name="search" class="w3-input w3-border w3-half w3-medium w3-round w3-padding" placeholder="Search Student ID.." required style="width:70%">
+        <a href="#" class="w3-bar-item w3-button w3-quarter w3-xlarge"><i class="fa fa-search"></i></a>
+    </div>
+    <div class="w3-right w3-container w3-row-padding w3-margin w3-mobile">
+        <span class="w3-button w3-2021-french-blue w3-round" onclick="document.getElementById('add').style.display='block'">Add Student</span>
+        <p>{{modal.showmodal('Add Student', 'add', '')}}</p> <!-- REUSABLE MODULE-->
+    </div> 
+</div>
 
-<p>{{modal.showmodal('Add Student')}}</p> <!-- REUSABLE MODULE -->
-
-<table class="w3-table-all w3-display-bottom w3-mobile">
-    <tr class="w3-mobile">
-        <th>ID Number</th>
-        <th>Last Name</th>
-        <th>Middle Initial</th>
-        <th>First Name</th>
-        <th>Course</th> 
-        <th>Level</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Update/Delete</th>
-    </tr>
-    {% for student in slist %}
-        <tr class="w3-hover-yellow w3-mobile">
-            <td>{{ student['idno']}}</td>
-            <td>{{ student['lastname'].title()}}</td>
-            <td>{{ student['midinit'][0].capitalize() + '.'}}</td>
-            <td>{{ student['firstname'].title()}}</td>
-            <td>{{ student['course'].upper()}}</td>
-            <td>{{ student['level']}}</td>
-            <td>{{ student['username']}}</td>
-            <td>{{ student['password_plain']}}</td>
-            <td><span title="Update Student" class="w3-button w3-ripple w3-2021-marigold w3-round"><i class="glyphicon glyphicon-edit"></i></span><a onclick="document.getElementById('id01').style.display='block'" title="Remove Student" class="w3-button w3-ripple w3-red w3-round" href="#"><i class="glyphicon glyphicon-remove"></i></a></td>
+<div class="w3-content w3-mobile" style="width: 70%;">
+    <table class="w3-table-all w3-display-bottom w3-mobile">
+        <tr class="w3-mobile">
+            <th>ID Number</th>
+            <th>Last Name</th>
+            <th>Middle Initial</th>
+            <th>First Name</th>
+            <th>Course</th> 
+            <th>Level</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Update/Delete</th>
         </tr>
-    {% endfor %}
-</table>
-
+        {% for student in slist %}
+            <tr class="w3-hover-yellow w3-mobile">
+                <td>{{ student['idno']}}</td>
+                <td>{{ student['lastname'].title()}}</td>
+                <td>{{ student['midinit'][0].capitalize() + '.'}}</td>
+                <td>{{ student['firstname'].title()}}</td>
+                <td>{{ student['course'].upper()}}</td>
+                <td>{{ student['level']}}</td>
+                <td>{{ student['username']}}</td>
+                <td>{{ student['password_plain']}}</td>
+                <td>
+                    <span class="w3-button w3-2021-marigold w3-round" 
+                        onclick="document.getElementById('update').style.display='block'">
+                            <i class="glyphicon glyphicon-edit"></i>
+                    </span>
+                </td>
+            </tr>
+            {{ modal.showmodal('Update Student','update', student) }} <!-- REUSABLE MODULE-->
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

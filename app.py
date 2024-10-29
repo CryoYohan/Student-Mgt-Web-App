@@ -15,6 +15,20 @@ app.secret_key="!@#"
 def account():
     return redirect(url_for('login')) if not session.get('name') else render_template("account.html", pagetitle="Account Information", shownavbar=True)
 
+@app.route("/showupdate")
+def showupdate():
+    return 
+
+@app.route("/update",methods=["POST"])
+def update():
+    idno:str = request.form['idno']
+    lastname:str = request.form['lastname']
+    middlename:str = request.form['midinit']
+    firstname:str = request.form['firstname']
+    course:str = request.form['course']
+    level:int = request.form['level']
+    db.update_student(idno=idno, lastname=lastname,midinit=middlename,firstname=firstname,course=course,level=level)
+    return flash('Update Successfully!')
 
 @app.route("/addstudent", methods=['POST'])
 def addstudent():
