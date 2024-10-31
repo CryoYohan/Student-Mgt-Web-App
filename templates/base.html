@@ -50,6 +50,26 @@
 			<div class="w3-overlay" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
 		{% endif %}
 			<div class="w3-margin-top">
+				<div class="w3-yellow w3-left w3-bar w3-padding-8">
+					<h1>{{ bartitle.title() }}</h1>
+				</div>
+				{% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						{% for category, message in messages %}
+							{% if category == 'info' %}
+								<div class="w3-panel w3-bar w3-large w3-green w3-display-container w3-margin-top w3-padding w3-animate-zoom" style="width:50%;margin:auto">
+									<span align="center">{{ message }}</span>
+									<span onclick="this.parentElement.style.display='none'" class="w3-button w3-large w3-small w3-display-topright">&times;</span>
+								</div>
+							{% elif category == 'error' %}
+								<div class="w3-panel w3-bar w3-large w3-red w3-display-container w3-margin-top w3-padding w3-animate-zoom" style="width:50%;margin:auto">
+									<span align="center">{{ message }}</span>
+									<span onclick="this.parentElement.style.display='none'" class="w3-button w3-large w3-small w3-display-topright">&times;</span>
+								</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
 				{% block content%}
 				{% endblock %}
 			</div>

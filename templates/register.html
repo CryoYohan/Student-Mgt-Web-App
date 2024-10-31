@@ -4,26 +4,6 @@
     <div class="header">
         <h1 class="w3-center w3-bar w3-2021-french-blue w3-round w3-xxlarge w3-sansserif"><b>Student Register</b></h1>
     </div></br>
-
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                {% if category == 'info' %}
-                    <div class="w3-panel w3-bar w3-large w3-green w3-display-container w3-margin-top w3-padding w3-animate-zoom" style="width:50%;margin:auto">
-                        <span align="center">{{ message }}</span>
-                        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-large w3-small w3-display-topright">&times;</span>
-                    </div>
-                {% elif category == 'error' %}
-                    <div class="w3-panel w3-bar w3-large w3-red w3-display-container w3-margin-top w3-padding w3-animate-zoom" style="width:50%;margin:auto">
-                        <span align="center">{{ message }}</span>
-                        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-large w3-small w3-display-topright">&times;</span>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
     <form class="w3-row-padding" method='POST' action="/userregister">
 
         <div class="w3-half">

@@ -17,7 +17,7 @@ bookcolumns:list = ['isbn', 'title', 'author', 'copyright', 'edition', 'price', 
 
 @app.route("/account")
 def account():
-    return redirect(url_for('login')) if not session.get('name') else render_template("account.html", pagetitle="Account Information", shownavbar=True)
+    return redirect(url_for('login')) if not session.get('name') else render_template("account.html", pagetitle="Account Information",bartitle='Edit Account Information', shownavbar=True)
 
 @app.route('/deletestudent/<student_idno>')
 def deletestudent(student_idno):
@@ -33,25 +33,42 @@ def updatestudent():
     firstname = request.form['firstname']
     course = request.form['course']
     level = request.form['level']
-    db.update_recordd(table=studtable,lastname=lastname, midinit=middlename, firstname=firstname, course=course, level=level)
+    db.update_record(table=studtable,lastname=lastname, midinit=middlename, firstname=firstname, course=course, level=level)
     flash("Student Updated Successfully!", "info")
     return redirect(url_for('show'))
 
+@app.route('/cancel')
+def cancel():
+    flash("Adding Book Cancelled!", "error")
+    return redirect(url_for('books'))
+
 @app.route("/addbook", methods=['POST'])
 def addbook():
-    isbn:str = request.form['isbn']
-    title:str = request.form['title']
-    author:str = request.form['author']
-    copyright:str = request.form['copyright']
-    edition:str = request.form['edition']
-    price:float = request.form['price']
-    quantity:int = request.form['quantity']
-    total:float = quantity * price
-    if not idno_duplicate(table=booktable,idno=isbn):
-        db.add_record(table=booktable, isbn=isbn,title=title,author=author,copyright=copyright,edition=edition,price=price,quantity=quantity,total=total)
-        flash("Book Added Succesfully!", 'info')
-    else:
-        flash("Error! Book not added", 'error')
+    price:float = 0.00
+    quantity:int = 0
+    total:float = 0.00
+
+    isbn = request.form['isbn']
+    title = request.form['title']
+    author = request.form['author']
+    copyright = request.form['copyright']
+    edition = request.form['edition']
+    try:
+        price = float(request.form['price'])
+        quantity = int(request.form['quantity'])
+        total = quantity * price
+        if not idno_duplicate(table=booktable, idno=isbn):
+            db.add_record(table=booktable, isbn=isbn, title=title, author=author, copyright=copyright,
+                        edition=edition, price=price, qty=quantity, total=total)
+            flash("Book Added Successfully!", 'info')
+        else:
+            flash("Error! Book not added", 'error')
+
+        return redirect(url_for('books'))
+    except ValueError:
+        flash(f"Error: Invalid Input!", 'error')
+        return redirect(url_for('books'))
+ 
     
 @app.route("/addstudent", methods=['POST'])
 def addstudent():
@@ -156,11 +173,11 @@ def login()->None:
 
 @app.route("/books")
 def books()->None:
-    return redirect("login") if not session.get("name") else render_template("books.html",booklist = db.getall_records(table=booktable),bookcolumns=bookcolumns,pagetitle='Manage Books', shownavbar=True)
+    return redirect("login") if not session.get("name") else render_template("books.html",booklist = db.getall_records(table=booktable),bookcolumns=bookcolumns,pagetitle='Manage Books',bartitle='Book Information', shownavbar=True)
 
 @app.route("/showstudents")
 def show()->None:
-    return redirect("login") if not session.get("name") else render_template("show.html",slist = db.getall_records(table=studtable),pagetitle='student list', shownavbar=True)
+    return redirect("login") if not session.get("name") else render_template("show.html",slist = db.getall_records(table=studtable),pagetitle='student list', bartitle='Show Student Information', shownavbar=True)
 
 
 @app.route("/")
