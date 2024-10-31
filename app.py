@@ -19,6 +19,8 @@ bookcolumns:list = ['isbn', 'title', 'author', 'copyright', 'edition', 'price', 
 def account():
     return redirect(url_for('login')) if not session.get('name') else render_template("account.html", pagetitle="Account Information",bartitle='Edit Account Information', shownavbar=True)
 
+
+
 @app.route('/deletestudent/<student_idno>')
 def deletestudent(student_idno):
     db.delete_record(table=studtable,idno=student_idno)
@@ -40,6 +42,25 @@ def updatestudent():
 @app.route('/cancel')
 def cancel():
     flash("Adding Book Cancelled!", "error")
+    return redirect(url_for('books'))
+
+@app.route("/updatebook/<student_idno>", methods=["POST"])
+def updatebook(student_idno):
+    title:str = request.form['lastname']
+    author:str = request.form['midinit']
+    copyright:str = request.form['firstname']
+    edition:str = request.form['course']
+    price:float = request.form['level']
+    quantity:int = request.form['level']
+    total:float = quantity * price
+    db.update_record(table=booktable,isbn=student_idno,title=title,author=author,copyright=copyright,edition=edition,price=price,quantity=quantity,total=total)
+    flash("Student Updated Successfully!", "info")
+    return redirect(url_for('show'))
+
+@app.route('/deletebook/<student_idno>')
+def deletebook(student_idno):
+    db.delete_record(table=booktable,isbn=student_idno)
+    flash('Book Deleted Successfully!', 'info')
     return redirect(url_for('books'))
 
 @app.route("/addbook", methods=['POST'])

@@ -51,7 +51,7 @@
                             <span class="w3-button w3-red w3-round w3-mobile" onclick="showBookModal('{{ book.isbn }}', 'delete')">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </span>
-                            {{ modal.showdeletemodal('Delete Book', 'delete-' + book.isbn, book) }}
+                            {{ modal.showdeletemodal('Delete Book', 'delete-' + book.isbn, book.isbn) }}
                         </td>                               
                     </tr>
                 {% endfor %}
