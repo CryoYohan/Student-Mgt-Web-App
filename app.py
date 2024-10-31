@@ -19,16 +19,22 @@ def account():
 def showupdate():
     return 
 
-@app.route("/update",methods=["POST"])
-def update():
+@app.route("/updatestudent",methods=["POST"])
+def updatestudent():
     idno:str = request.form['idno']
     lastname:str = request.form['lastname']
     middlename:str = request.form['midinit']
     firstname:str = request.form['firstname']
     course:str = request.form['course']
     level:int = request.form['level']
-    db.update_student(idno=idno, lastname=lastname,midinit=middlename,firstname=firstname,course=course,level=level)
-    return flash('Update Successfully!')
+    if not idno_duplicate(idno=idno):
+        db.update_student(idno=idno, lastname=lastname,midinit=middlename,firstname=firstname,course=course,level=level)
+        flash('Update Successfully!','info')
+        return redirect(url_for('show'))
+    else:
+        flash("Error! Student not Updated", "error")
+        return redirect( url_for('show') )
+    
 
 @app.route("/addstudent", methods=['POST'])
 def addstudent():
@@ -40,7 +46,7 @@ def addstudent():
     level:int = request.form['level']
     username:str = f"tu-{idno}"
     password:str = f"{idno}-{lastname[0]}"
-    if not idno_duplicate(idno,username):
+    if not idno_duplicate(idno=idno,username=username):
         hashed_pw = pwhash.hashpassword(password)
         student = Student(idno=idno,lastname=lastname,firstname=firstname,midinit=middlename,course=course,level=level,username=username,password_plain=password, password_hash=hashed_pw)
         db.add_students(**student.__dict__)
@@ -80,14 +86,14 @@ def userregister()->None:
 
 
 
-def idno_duplicate(idno:str, username:str)->bool:
+def idno_duplicate(**args)->bool:
     students = db.getall_students()
     for student in students:
-        if student['idno'] == idno:
+        if student['idno'] == args.get('idno'):
             flash("User ID already exist!", "error")
             return True
         
-        if student['username'] == username:
+        if student['username'] == args.get('username'):
             flash("Username already exist!", "error")
             return True
     return False
@@ -103,9 +109,9 @@ def logout():
     session['name'] = None
     return redirect(url_for("login"))
 
-@app.route('/updatestudent')
-def updatestudent():
-    return redirect(url_for('login')) if not session.get('name') else render_template("updatestudent.html", pagetitle="Update Student Information", shownavbar=True)
+#@app.route('/updatestudent')
+#def updatestudent():
+#    return redirect(url_for('login')) if not session.get('name') else render_template("updatestudent.html", pagetitle="Update Student Information", shownavbar=True)
 
 @app.route("/userlogin",methods=['POST'])
 def userlogin()->None:
