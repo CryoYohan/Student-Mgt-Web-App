@@ -32,6 +32,7 @@ class Databasehelper:
         connection.commit()
         cursor.close()
         connection.close() 
+        return True if cursor.rowcount > 0 else False
 
     def getall_students(self)->list:
         query = f"SELECT * FROM {self.table}"
@@ -39,7 +40,7 @@ class Databasehelper:
         return users
     
     def find_students(self,idno:str):
-        sql:str = f"SELECT * FROM users WHERE `idno` = {idno}"
+        sql:str = f"SELECT * FROM {self.table} WHERE `idno` = {idno}"
         return self.getprocess(sql)
     
     def add_students(self,**kwargs):
@@ -61,4 +62,10 @@ class Databasehelper:
         fld:str = ",".join(flds)
         #create sql statement
         sql:str = f"UPDATE `{self.table}` SET {fld} WHERE `{keys[0]}`= '{values[0]}'"
+        return self.postprocess(sql)
+    
+    def delete_student(self,**kwargs)->list:
+        keys:list = list(kwargs.keys())
+        values:list = list(kwargs.values())
+        sql:str = f"DELETE FROM `{self.table}` WHERE `{keys[0]}` = '{values[0]}'"
         return self.postprocess(sql)

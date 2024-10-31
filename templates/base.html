@@ -22,11 +22,11 @@
 				<button onclick="w3_close()" class="w3-bar-item w3-large w3-2021-french-blue w3-mobile"><i class="glyphicon glyphicon-remove w3-xlarge">	Close</i></button>
 				<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-home w3-xlarge">	Home</i></a>
 				<button onclick="myAccFunc()" class="w3-bar-item w3-button w3-block w3-left-align">
-					<i class="glyphicon glyphicon-list w3-xlarge">	ManageStudents&nbsp;</i><i class="fa fa-caret-down"></i>
+					<i class="glyphicon glyphicon-list w3-xlarge">	Manage&nbsp;</i><i class="fa fa-caret-down"></i>
 					</button>
 					<div id="demoAcc" class="w3-hide w3-khaki w3-card ">
-						<a href="{{ url_for('show') }}" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-user w3-xlarge"></i>	Show Students</a>
-						<a href="#" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-trash w3-xlarge"></i>	Remove Students</a>
+						<a href="{{ url_for('show') }}" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-user w3-xlarge"></i>	Students</a>
+						<a href="{{ url_for('books') }}" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-book w3-xlarge"></i>	Books</a>
 						<a href="{{ url_for('updatestudent') }}" class="w3-bar-item w3-button w3-animate-left"><i class="glyphicon glyphicon-edit w3-xlarge"></i>	Update Students</a>
 					</div>
 					<a href="{{ url_for('landingpage') }}" class="w3-bar-item w3-button w3-hover-white w3-mobile"><i class="glyphicon glyphicon-info-sign w3-xlarge">	About</i></a>

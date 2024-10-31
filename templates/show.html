@@ -56,32 +56,30 @@
                 <td>{{ student['username']}}</td>
                 <td>{{ student['password_plain']}}</td>
                 <td>
-                    <span class="w3-button w3-2021-marigold w3-round" 
+                    <span class="w3-button w3-2021-marigold w3-round w3-mobile" 
                           onclick="showStudentModal('{{ student.idno }}', 'update')">
                         <i class="glyphicon glyphicon-edit"></i>
                     </span>
                     {{ modal.showmodal('Update Student', 'update-' + student.idno, student) }} <!-- Dynamic modal ID -->
                 
-                    <span class="w3-button w3-2021-raspberry-sorbet w3-round" 
+                    <span class="w3-button w3-2021-raspberry-sorbet w3-round w3-mobile" 
                           onclick="showStudentModal('{{ student.idno }}', 'delete')">
                         <i class="glyphicon glyphicon-remove"></i>
                     </span>
-                    {{ modal.showdeletemodal('Delete Student', 'delete-' + student.idno, student) }} <!-- Dynamic modal ID -->
-                </td>                
-                
+                    {{ modal.showdeletemodal('Delete Student', 'delete-' + student.idno, student.idno) }} <!-- Dynamic modal ID -->
+                </td>                               
             </tr>
-
         {% endfor %}
     </table>
 </div>
 <script>
-function showStudentModal(idno, action) {
-    // Construct the modal ID dynamically
-    const modalId = action + '-' + idno;
-    
-    // Show the modal
-    document.getElementById(modalId).style.display = 'block';
-}
+    function showStudentModal(idno, action) {
+        // Construct the modal ID dynamically
+        const modalId = action + '-' + idno;
+        
+        // Show the modal
+        document.getElementById(modalId).style.display = 'block';
+    }
 </script>
     
     

@@ -15,27 +15,25 @@ app.secret_key="!@#"
 def account():
     return redirect(url_for('login')) if not session.get('name') else render_template("account.html", pagetitle="Account Information", shownavbar=True)
 
-@app.route("/showupdate")
-def showupdate():
-    return 
+@app.route('/deletestudent/<student_idno>')
+def deletestudent(student_idno):
+    db.delete_student(idno=student_idno)
+    flash('Student Deleted Successfully!', 'info')
+    return redirect(url_for('show'))
 
-@app.route("/updatestudent",methods=["POST"])
+
+@app.route("/updatestudent", methods=["POST"])
 def updatestudent():
-    idno:str = request.form['idno']
-    lastname:str = request.form['lastname']
-    middlename:str = request.form['midinit']
-    firstname:str = request.form['firstname']
-    course:str = request.form['course']
-    level:int = request.form['level']
-    if not idno_duplicate(idno=idno):
-        db.update_student(idno=idno, lastname=lastname,midinit=middlename,firstname=firstname,course=course,level=level)
-        flash('Update Successfully!','info')
-        return redirect(url_for('show'))
-    else:
-        flash("Error! Student not Updated", "error")
-        return redirect( url_for('show') )
-    
+    lastname = request.form['lastname']
+    middlename = request.form['midinit']
+    firstname = request.form['firstname']
+    course = request.form['course']
+    level = request.form['level']
+    db.update_student(lastname=lastname, midinit=middlename, firstname=firstname, course=course, level=level)
+    flash("Student Updated Successfully!", "info")
+    return redirect(url_for('show'))
 
+    
 @app.route("/addstudent", methods=['POST'])
 def addstudent():
     idno:str = request.form['idno']
@@ -45,7 +43,7 @@ def addstudent():
     course:str = request.form['course']
     level:int = request.form['level']
     username:str = f"tu-{idno}"
-    password:str = f"{idno}-{lastname[0]}"
+    password:str = f"{idno}-{lastname[0].lower()}"
     if not idno_duplicate(idno=idno,username=username):
         hashed_pw = pwhash.hashpassword(password)
         student = Student(idno=idno,lastname=lastname,firstname=firstname,midinit=middlename,course=course,level=level,username=username,password_plain=password, password_hash=hashed_pw)
@@ -109,9 +107,6 @@ def logout():
     session['name'] = None
     return redirect(url_for("login"))
 
-#@app.route('/updatestudent')
-#def updatestudent():
-#    return redirect(url_for('login')) if not session.get('name') else render_template("updatestudent.html", pagetitle="Update Student Information", shownavbar=True)
 
 @app.route("/userlogin",methods=['POST'])
 def userlogin()->None:
@@ -135,6 +130,10 @@ def register():
 @app.route("/login")
 def login()->None:
     return render_template("login.html",pagetitle='user login',shownavbar=False)
+
+@app.route("/books")
+def books()->None:
+    return redirect("login") if not session.get("name") else render_template("books.html",booklist = db.getall_students(),pagetitle='Manage Books', shownavbar=True)
 
 @app.route("/showstudents")
 def show()->None:
