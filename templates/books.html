@@ -1,80 +1,62 @@
 {% extends 'base.html'%}
 {% block content %}
 {% import 'modal.html' as modal %}
-<div class="w3-2021-illuminating w3-left w3-bar w3-padding-8">
+<div class="w3-yellow w3-left w3-bar w3-padding-8">
     <h1>Book Information</h1>
 </div>
 <div class="w3-bar">
-    <div class="w3-card w3-bar-item" style="width: 30%;">
-        <form action="#" methods="POST">
-            <p>
-                <label>ISBN</label>
-                <input type="text" name="isbn" class="w3-input w3-border" required>
-            </p>
-            <p>
-                <label>TITLE</label>
-                <input type="text" name="isbn" class="w3-input w3-border" required>
-            </p>
-            <p>
-                <label>AUTHOR</label>
-                <input type="text" name="isbn" class="w3-input w3-border" required>
-            </p>
-            <p>
-                <label>COPYRIGHT</label>
-                <input type="text" name="isbn" class="w3-input w3-border" required>
-            </p>
-            <p>
-                <label>EDITION</label>
-                <input type="text" name="isbn" class="w3-input w3-border" required>
-            </p>
-            <p>
-                <label>PRICE</label>
-                <input type="text" name="isbn" class="w3-input w3-border" required>
-            </p>
+    <div class="w3-card w3-bar-item" style="width: 20%;">
+        <form action="{{'/addbook'}}" methods="POST">
+            {% for column in bookcolumns[:6]%}
+                        <div>
+                            <p>
+                                <label>{{column.upper()}}</label>
+                                <input type="text" name="{{column}}" class="w3-input w3-border" required>
+                            </p>
+                        </div>
+            {% endfor %}
             <label>QUANTITY</label>
             <p class="w3-bar">
-                <input type="text" value=0 name="isbn" style="width: 15%;" class="w3-bar-item w3-input w3-border" readonly>
+                <input type="text" value=0 name="qty" style="width: 20%;" class="w3-bar-item w3-input w3-border" readonly>
                 <button class="w3-bar-item w3-margin-right w3-margin-left w3-button w3-circle w3-green">+</button>
                 <button class="w3-bar-item w3-button w3-circle w3-border w3-border-green">-</button>
             </p>
+            <div class="w3-padding-top w3-mobile w3-bar">
+                <input type="submit" value="SAVE" class="w3-bar-item w3-button w3-blue w3-round-large w3-medium w3-margin-right w3-mobile" style="width:50%">
+                <span onclick="" class="w3-bar-item w3-button w3-round-large w3-medium w3-red">CANCEL</span>
+            </div>
         </form>
     </div>
-    <div class="w3-bar-item" style="width: 70%;">
+    <div class="w3-bar-item" style="width: 80%;">
         <div class="w3-content w3-mobile">
             <table class="w3-table-all w3-display-bottom w3-mobile">
                 <tr class="w3-mobile">
-                    <th>ID Number</th>
-                    <th>Last Name</th>
-                    <th>Middle Initial</th>
-                    <th>First Name</th>
-                    <th>Course</th> 
-                    <th>Level</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Update/Delete</th>
+                    {% for column in bookcolumns %}
+                        <th>{{column.upper()}}</th>
+                    {% endfor%}
                 </tr>
-                {% for student in booklist %}
+                {% for book in booklist %}
                     <tr class="w3-hover-yellow w3-mobile">
-                        <td>{{ student['idno']}}</td>
-                        <td>{{ student['lastname'].title()}}</td>
-                        <td>{{ student['midinit'][0].capitalize() + '.'}}</td>
-                        <td>{{ student['firstname'].title()}}</td>
-                        <td>{{ student['course'].upper()}}</td>
-                        <td>{{ student['level']}}</td>
-                        <td>{{ student['username']}}</td>
-                        <td>{{ student['password_plain']}}</td>
+                        <td>{{ book['isbn']}}</td>
+                        <td>{{ book['title'].title()}}</td>
+                        <td>{{ book['author']}}</td>
+                        <td>{{ book['copyright'].title()}}</td>
+                        <td>{{ book['edition'].upper()}}</td>
+                        <td>{{ book['price']}}</td>
+                        <td>{{ book['qty']}}</td>
+                        <td>{{ book['total']}}</td>
                         <td>
-                            <span class="w3-button w3-2021-marigold w3-round w3-mobile" 
-                                  onclick="showStudentModal('{{ student.idno }}', 'update')">
+                            <span class="w3-button w3-orange w3-round w3-mobile" 
+                                  onclick="showBookModal('{{ book.isbn }}', 'update')">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </span>
-                            {{ modal.showmodal('Update Student', 'update-' + student.idno, student) }} <!-- Dynamic modal ID -->
+                            {{modal.bookmodal('Edit Book', 'update-' + book.isbn, book, bookcolumns)}}
                         
-                            <span class="w3-button w3-2021-raspberry-sorbet w3-round w3-mobile" 
-                                  onclick="showStudentModal('{{ student.idno }}', 'delete')">
+                            <span class="w3-button w3-red w3-round w3-mobile" 
+                                  onclick="showBookModal('{{ book.isbn }}', 'delete')">
                                 <i class="glyphicon glyphicon-remove"></i>
                             </span>
-                            {{ modal.showdeletemodal('Delete Student', 'delete-' + student.idno, student.idno) }} <!-- Dynamic modal ID -->
+                            {{modal.showdeletemodal('Delete Book', 'delete-' + book.isbn, book)}}
                         </td>                               
                     </tr>
                 {% endfor %}
@@ -82,5 +64,14 @@
         </div>
     </div>
 </div>
+<script>
+    function showBookModal(idno, action) {
+        // Construct the modal ID dynamically
+        const modalId = action + '-' + idno;
+        
+        // Show the modal
+        document.getElementById(modalId).style.display = 'block';
+    }
+</script>
 
 {% endblock %}

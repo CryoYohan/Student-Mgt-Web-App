@@ -5,7 +5,6 @@ class Databasehelper:
         self.user = 'root'
         self.password = ''
         self.database = 'users'
-        self.table = "students"
 
     def getdb_connection(self):
         connection = mariadb.connect(
@@ -34,24 +33,24 @@ class Databasehelper:
         connection.close() 
         return True if cursor.rowcount > 0 else False
 
-    def getall_students(self)->list:
-        query = f"SELECT * FROM {self.table}"
+    def getall_records(self,table)->list:
+        query = f"SELECT * FROM {table} ORDER BY idno"
         users:list = self.getprocess(query)
         return users
     
-    def find_students(self,idno:str):
-        sql:str = f"SELECT * FROM {self.table} WHERE `idno` = {idno}"
+    def find_record(self,table,idno:str):
+        sql:str = f"SELECT * FROM {table} WHERE `idno` = {idno}"
         return self.getprocess(sql)
     
-    def add_students(self,**kwargs):
+    def add_record(self,table,**kwargs):
         keys:list = kwargs.keys()
         values:list=kwargs.values()
         columns:str = ",".join(keys)
         formatted_values = ",".join([f"'{v}'" if isinstance(v, str) else str(v) for v in values])
-        sql:str = f"INSERT INTO {self.table} ({columns}) VALUES({formatted_values})"
+        sql:str = f"INSERT INTO {table} ({columns}) VALUES({formatted_values})"
         return self.postprocess(sql)
     
-    def update_student(self,**kwargs):
+    def update_record(self,table,**kwargs):
         keys:list = list(kwargs.keys())
         values:list = list(kwargs.values())
         flds:list = []
@@ -61,11 +60,12 @@ class Databasehelper:
         #transform the list of string with "," as delimiter
         fld:str = ",".join(flds)
         #create sql statement
-        sql:str = f"UPDATE `{self.table}` SET {fld} WHERE `{keys[0]}`= '{values[0]}'"
+        sql:str = f"UPDATE `{table}` SET {fld} WHERE `{keys[0]}`= '{values[0]}'"
         return self.postprocess(sql)
     
-    def delete_student(self,**kwargs)->list:
+    def delete_record(self,table,**kwargs)->list:
         keys:list = list(kwargs.keys())
         values:list = list(kwargs.values())
-        sql:str = f"DELETE FROM `{self.table}` WHERE `{keys[0]}` = '{values[0]}'"
+        sql:str = f"DELETE FROM `{table}` WHERE `{keys[0]}` = '{values[0]}'"
         return self.postprocess(sql)
+    
