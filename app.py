@@ -44,18 +44,18 @@ def cancel():
     flash("Adding Book Cancelled!", "error")
     return redirect(url_for('books'))
 
-@app.route("/updatebook/<student_idno>", methods=["POST"])
-def updatebook(student_idno):
-    title:str = request.form['lastname']
-    author:str = request.form['midinit']
-    copyright:str = request.form['firstname']
-    edition:str = request.form['course']
-    price:float = request.form['level']
-    quantity:int = request.form['level']
-    total:float = quantity * price
-    db.update_record(table=booktable,isbn=student_idno,title=title,author=author,copyright=copyright,edition=edition,price=price,quantity=quantity,total=total)
-    flash("Student Updated Successfully!", "info")
-    return redirect(url_for('show'))
+@app.route("/updatebook/<isbn>", methods=["POST"])
+def updatebook(isbn):
+    title:str = request.form['title']
+    author:str = request.form['author']
+    copyright:str = request.form['copyright']
+    edition:str = request.form['edition']
+    price:float = request.form['price']
+    quantity:int = request.form['qty']
+    total:float = int(quantity) * float(price)
+    db.update_record(table=booktable,isbn=isbn,title=title,author=author,copyright=copyright,edition=edition,price=price,qty=quantity,total=total)
+    flash("Book Updated Successfully!", "info")
+    return redirect(url_for('books'))
 
 @app.route('/deletebook/<student_idno>')
 def deletebook(student_idno):
@@ -203,7 +203,7 @@ def show()->None:
 
 @app.route("/")
 def index():
-    return redirect(url_for('login')) if not session.get('name') else render_template("index.html",pagetitle='Tidert\'s University',shownavbar=True)
+    return redirect(url_for('login')) if not session.get('name') else render_template("index.html",pagetitle='Tidert\'s University',bartitle='Home Page',shownavbar=True)
 
 
 @app.route("/landingpage")

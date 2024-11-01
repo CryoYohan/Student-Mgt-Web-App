@@ -46,7 +46,7 @@
                             <span class="w3-button w3-orange w3-round w3-mobile" onclick="showBookModal('{{ book.isbn }}', 'update')">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </span>
-                            {{ modal.bookmodal('Edit Book', 'update-' + book.isbn, book, bookcolumns) }}
+                            {{ modal.bookmodal('Update Book', 'update-' + book.isbn, book, bookcolumns) }}
 
                             <span class="w3-button w3-red w3-round w3-mobile" onclick="showBookModal('{{ book.isbn }}', 'delete')">
                                 <i class="glyphicon glyphicon-remove"></i>

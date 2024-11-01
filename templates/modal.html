@@ -90,13 +90,13 @@
         </header>
 
         <div class="w3-container w3-padding w3-mobile">
-            <form class="w3-row-padding" method='POST' action="{{ '/' + id.split('-')[0] + 'book' }}">
+            <form class="w3-row-padding" method="POST" action="{{ url_for('updatebook', isbn=book['isbn']) }}">
                 {% if id.split('-')[0] == 'update' %}
                     {% for column in bookcolumns[1:7]%}
                         <div class="w3-half">
                             <p>
                                 <label>{{column.upper()}}</label>
-                                <input type="text" name="{{column}}" class="w3-input w3-border" required>
+                                <input type="text" value="{{book[column]}}" name="{{column}}" class="w3-input w3-border" required>
                             </p>
                         </div>
                     {% endfor %}
