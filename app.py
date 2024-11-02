@@ -50,12 +50,16 @@ def updatebook(isbn):
     author:str = request.form['author']
     copyright:str = request.form['copyright']
     edition:str = request.form['edition']
-    price:float = request.form['price']
-    quantity:int = request.form['qty']
-    total:float = int(quantity) * float(price)
-    db.update_record(table=booktable,isbn=isbn,title=title,author=author,copyright=copyright,edition=edition,price=price,qty=quantity,total=total)
-    flash("Book Updated Successfully!", "info")
-    return redirect(url_for('books'))
+    try:
+        price:float = request.form['price']
+        quantity:int = request.form['qty']
+        total:float = int(quantity) * float(price)
+        db.update_record(table=booktable,isbn=isbn,title=title,author=author,copyright=copyright,edition=edition,price=price,qty=quantity,total=total)
+        flash("Book Updated Successfully!", "info")
+        return redirect(url_for('books'))
+    except ValueError:
+        flash(f"Error: Invalid Input!", 'error')
+        return redirect(url_for('books'))
 
 @app.route('/deletebook/<student_idno>')
 def deletebook(student_idno):

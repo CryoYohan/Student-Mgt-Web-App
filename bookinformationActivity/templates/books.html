@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+{% import 'modal.html' as modal %}
+<div class="w3-bar w3-container">
+    <div class="w3-card w3-bar-item w3-container w3-half" style="width: 20%;">
+        <form action="/addbook" method="POST">
+            {% for column in bookcolumns[:6] %}
+                <div>
+                    <p>
+                        <label>{{ column.upper() }}</label>
+                        <input type="text" name="{{ column }}" class="w3-input w3-border" required>
+                    </p>
+                </div>
+            {% endfor %}
+            <label>QUANTITY</label>
+            <p class="w3-bar">
+                <input type="text" value="0" name="quantity" id="quantity" style="width: 20%;" class="w3-bar-item w3-input w3-border" readonly>
+                <button type="button" onclick="increaseQuantity()" class="w3-bar-item w3-margin-right w3-margin-left w3-button w3-circle w3-green">+</button>
+                <button type="button" onclick="decreaseQuantity()" class="w3-bar-item w3-button w3-circle w3-border w3-border-green">-</button>
+            </p>
+            <div class="w3-padding-top w3-mobile w3-bar">
+                <input type="submit" value="SAVE" class="w3-bar-item w3-button w3-blue w3-round-large w3-medium w3-margin-right w3-mobile" style="width:50%">
+                <span class="w3-bar-item w3-button w3-round-large w3-medium w3-red"><a style="color:white;text-decoration:none" href="{{ url_for('books') }}">CANCEL</a></span>
+            </div>
+        </form>
+    </div>
+    <div class="w3-bar-item w3-container w3-half" style="width: 80%;">
+        <div class="w3-content w3-mobile">
+            <table class="w3-table-all w3-mobile">
+                <tr class="w3-mobile">
+                    {% for column in bookcolumns %}
+                        <th>{{ column.upper() }}</th>
+                    {% endfor %}
+                </tr>
+                {% for book in booklist %}
+                    <tr class="w3-hover-yellow w3-mobile">
+                        <td>{{ book['isbn'] }}</td>
+                        <td>{{ book['title'].title() }}</td>
+                        <td>{{ book['author'] }}</td>
+                        <td>{{ book['copyright'].title() }}</td>
+                        <td>{{ book['edition'].upper() }}</td>
+                        <td>{{ book['price'] }}</td>
+                        <td>{{ book['qty'] }}</td>
+                        <td>{{ book['total'] }}</td>
+                        <td>
+                            <div class="button-container">
+                                <span class="w3-button w3-orange w3-round w3-mobile" onclick="showBookModal('{{ book.isbn }}', 'update')">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </span>
+                                {{ modal.bookmodal('Update Book', 'update-' + book.isbn, book, bookcolumns) }}
+                                <span class="w3-button w3-red w3-round w3-mobile" onclick="showBookModal('{{ book.isbn }}', 'delete')">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                </span>
+                                {{ modal.showdeletemodal('Delete Book', 'delete-' + book.isbn, book.isbn) }}
+                            </div>
+                        </td>                               
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function showBookModal(idno, action) {
+        const modalId = action + '-' + idno;
+        document.getElementById(modalId).style.display = 'block';
+    }
+    function increaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        let currentQuantity = parseInt(quantityInput.value, 10);
+        quantityInput.value = currentQuantity + 1;
+    }
+    function decreaseQuantity() {
+        const quantityInput = document.getElementById('quantity');
+        let currentQuantity = parseInt(quantityInput.value, 10);
+        
+        if (currentQuantity > 0) {
+            quantityInput.value = currentQuantity - 1;
+        }
+    }
+</script>
+{% endblock %}

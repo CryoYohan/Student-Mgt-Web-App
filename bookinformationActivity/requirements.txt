@@ -1,0 +1,28 @@
+REQUIREMENTS:
+
+1.) Install virtual environment in this folder:
+	- pip install virtualenv
+	if virtualenv already installed, proceed number 2.
+	else proceed 1
+
+2.) Type virtualenv <name of virtual environment>:
+	- virtualenv venv
+
+3.) CD to <name of venv>\Scripts\activate:
+	- venv\Scripts\activate
+	(venv) will show in the first line
+
+4.) Install Flask:
+	- pip install Flask
+	- pip install mysql-connector-python
+
+5.) Import Migrated Database
+	- Download 'users.sql'
+	- Open XAMPP Control Panel
+	- Start Apache and MySQL
+	- Click Admin in MySQL 
+	- Once you're in PHP/Myadmin, import 'users.sql'
+
+5. Run app.py:
+	- app.py
+
